@@ -1,4 +1,7 @@
 
+ $( document ).ready(function() {
+	console.log("eadadase");
+
  $.ajax({
     url: 'https://ga-cat-rescue.herokuapp.com/api/cats',
     method: 'get',
@@ -11,7 +14,28 @@
  });
 
 $("form").on("submit", function(event){
+	console.log("asdasd");
 	event.preventDefault();
+	console.log("doooo");
+
+
+var newCat = $("#cat-name").val();
+var newNote = $("#cat-note").val();
+
+var catObject = {
+	name: newCat,
+	note: newNote,
+};
+
+$.post('https://ga-cat-rescue.herokuapp.com/api/cats', JSON.stringify(catObject))
+.done(function(data) {
+var newCatData = JSON.parse(data);
+$('#cats').append('<li>' + newCatData.name + ' - <em>' + newCatData.note + '</em></li>');
+
+$('#cat-name').val('Mr. Kittums');
+$('#cat-note').val('Tell us a bit about this cat');
+});
+});
 });
 
 //var newCat = 
